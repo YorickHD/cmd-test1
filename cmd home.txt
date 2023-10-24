@@ -1,0 +1,19 @@
+@echo off
+echo %0, %1
+
+if "%1" == "/?" (
+echo if you enter /? help will be displayed
+echo if you enter a directory, the program will process all text files from the specified folder and create a file next to it utf-8.txt  
+echo if any errors occur, the program will output an error level 
+exit /b
+) 
+
+if "%1" == "directory" (
+for /r %dir% %%f in (*.txt) do (
+iconv -f CP866 -t UTF-8 "%%f" > "%%f-UTF-8.txt" 
+)
+)
+
+if %errorlevel% NEQ 0 (
+echo error level - %errorlevel%
+)
